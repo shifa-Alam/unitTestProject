@@ -1,9 +1,0 @@
-<mat-form-field [formGroup]="sharedForm" style="width:100%">
-  <textarea #message [maxlength]="maxlength" matInput placeholder="{{placeholder | translate }}" formControlName="sharedFormControl" type="text"  [required]="required"></textarea>
-  <mat-hint align="start">{{ hint | translate}}</mat-hint>
-  <mat-hint align="end">{{message.value.length}} / {{ maxlength }}</mat-hint>
-  
-  <mat-error *ngIf="sharedForm.get('sharedFormControl').hasError('required')">
-    {{errorMessage | translate }}
-  </mat-error>
-</mat-form-field>

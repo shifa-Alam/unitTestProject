@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashBoardRoutingModule } from './dash-board-routing.module';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared_module/shared.module';
 
 @NgModule({
   declarations: [],

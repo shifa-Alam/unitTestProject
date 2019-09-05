@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './feature_modules/user/user.module';
 import { DashBoardModule } from './feature_modules/dash-board/dash-board.module';
-import { SharedModule } from './feature_modules/shared/shared.module';
+import { SharedModule } from './shared_module/shared.module';
 
 
 
@@ -16,6 +16,7 @@ import { SharedModule } from './feature_modules/shared/shared.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+
     UserModule,
     DashBoardModule,
     SharedModule

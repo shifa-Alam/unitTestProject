@@ -1,9 +1,0 @@
-<mat-form-field [formGroup]="sharedForm" style="width:100%">
-  <input matInput placeholder="{{placeholder | translate }}" formControlName="sharedFormControl" type="text"
-    [required]="required" (keypress)="onChanges($event)">
-  <mat-icon matSuffix >phone</mat-icon>
-  <mat-hint>{{ 'global.areaCode' | translate }}</mat-hint>
-  <mat-error *ngIf="sharedForm.get('sharedFormControl').hasError('required')">
-    {{errorMessage | translate }}
-  </mat-error>
-</mat-form-field>
