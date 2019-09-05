@@ -1,0 +1,90 @@
+
+<div class="example-container">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="example-table-container table-responsive">
+    <table mat-table [dataSource]="entities" class="striped" matSort (matSortChange)="sortData($event)"
+      *ngIf="entities && access.read">
+      <ng-container *ngFor="let column of columns" matColumnDef="{{column.name}}">
+        <th mat-header-cell *matHeaderCellDef>
+
+          <span
+            *ngIf="(column.name != 'select') && (column.name != 'action') && (column.name != 'no') && (column.sort); else hide_sort"
+            mat-sort-header>{{column.label | translate}}</span>
+
+          <ng-template #hide_sort>
+            <span *ngIf="(column.name != 'select');">{{column.label | translate}}</span>
+          </ng-template>
+
+          <span *ngIf="column.name == 'select' ">
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </span>
+        </th>
+
+        <td mat-cell *matCellDef="let element;let  i = index">
+          <span *ngIf="column.name == 'no' ">
+            {{i+index}}
+          </span>
+          <span *ngIf="column.name != 'action' && column.name != 'no' ">
+            <span *ngIf="element.id!=editId;else edit">
+              {{element[column.name]}}
+            </span>
+            <ng-template #edit>
+                <mat-form-field >
+                  <input matInput [(ngModel)]="element[column.name]" type="text" autofocus >
+                </mat-form-field>
+              </ng-template>
+
+          </span>
+
+          <span *ngIf="column.name == 'action' ">
+            <app-details-button [routerLink]="[editRoute,detailRoute, element.id]" *ngIf="detailRoute">
+            </app-details-button>
+            <span *ngIf="element.id!=editId;else save_button">
+                <app-edit-button *ngIf="access.edit" (click)="editInline(element.id)"></app-edit-button>
+              </span>
+              <ng-template #save_button>
+                <button mat-icon-button color="primary" title="save" (click)="update(element)">
+                  <mat-icon>save</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" title="cancel" (click)="cancelClick()" type="reset">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </ng-template>
+
+
+          
+            <span >
+              <app-delete-button (click)="delete(element)" *ngIf="access.delete"></app-delete-button>
+            </span>
+          </span>
+
+          <span *ngIf="column.name == 'select' ">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? toggle(element) : null"
+              [checked]="selection.isSelected(element)">
+            </mat-checkbox>
+          </span>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"></tr>
+    </table>
+
+    <table *ngIf="!entities && !isLoadingResults">
+      <tr>
+        <td align="center">{{ 'tableList.noRecord' | translate }}</td>
+      </tr>
+    </table>
+
+    <div [hidden]="!entities">
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, all]" showFirstLastButtons (page)="getPaginatorData($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-4">
+        <app-input-string [placeholder]="placeholderBranchName" [required]="required"
+            (notify)="onBranchNameChanges($event)" [value]="name" ></app-input-string>
+    </div>
+    <div class="col-md-4">
+        <app-culture-code (notify)="onCultureCodeChange($event)" [required]="required" [value]="cultureCodeId" ></app-culture-code>
+    </div>
+    <div class="col-md-4">
+        <mat-checkbox [(ngModel)]="isCorporateValue" (change)="onCheckboxChage()" [disabled]="disabled">
+            {{'branch.corporate' | translate}}</mat-checkbox>
+    </div>
+</div>
+
+<app-phone (notify)="onPhoneChange($event)" [required]="required" [value]="phone" [disabled]="disabled"></app-phone>
+<app-address (notify)="onAddressChange($event)" [required]="required" [value]="address" [disabled]="disabled"></app-address>

@@ -1,0 +1,21 @@
+<!-- <div class="row">
+        <app-input-string [placeholder]="phoneNumberPlaceholder" [required]="true"
+        (notify)="onPhoneChange($event)" [value]="phoneNumber" [disabled]=" disabled ? true : false"
+        [required]="required"></app-input-string>
+</div> -->
+
+<div class="row">
+        <div class="col-md-4">
+
+                <app-input-phone [required]="required" [value]="phoneNumber" [disabled]=" disabled ? true : false"
+                        (notify)="onPhoneChange($event)"></app-input-phone>
+        </div>
+        <div class="col-md-4">
+                <app-phone-type (notify)="onPhoneTypeChange($event)" [value]="phoneTypeId"
+                        [disabled]=" disabled ? true : false" [required]="required"></app-phone-type>
+        </div>
+        <div class="col-md-4">
+          <mat-checkbox [(ngModel)]="isDefaultValue" (change)="onCheckboxChange()"
+                        [disabled]="disabled">{{ 'address.defaultPhone' | translate }}</mat-checkbox>
+        </div>
+</div>

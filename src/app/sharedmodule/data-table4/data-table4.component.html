@@ -1,0 +1,134 @@
+<div class="example-container">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="example-table-container table-responsive">
+   
+      
+      <!--<div  class="col-md-2"  *ngIf="this.selection.selected.length>0 && access.delete">
+          <button mat-icon-button color="warn" title="Delete selected Item" (click)="deleteSelectedItem()">
+              <i class="material-icons deleteForever">
+                  delete_forever
+              </i>
+          </button>
+      </div>-->
+      
+    <table mat-table [dataSource]="entities" class="striped" matSort (matSortChange)="sortData($event)"
+           *ngIf="entities && access.read">
+       
+        <ng-container *ngFor="let column of columns" matColumnDef="{{column.name}}">
+
+            <th mat-header-cell *matHeaderCellDef>
+                <span *ngIf="column.name == 'select'; else twoTh">
+                    <span class="customCheckBox">
+                        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </span>
+                </span>
+                <ng-template #twoTh>
+                    <span *ngIf="column.sort; else threeTh"
+                          mat-sort-header>{{column.label | translate}}</span>
+                </ng-template>
+                <ng-template #threeTh>{{column.label | translate}}</ng-template>
+            </th>
+
+            <td mat-cell *matCellDef="let element;let  i = index">
+                <span *ngIf="column.name =='no'"> {{i+index}}</span>
+
+                <span *ngIf="column.dateFormat; else two"> {{element[column.name] | date }}</span>
+                <ng-template #two>
+                    <span *ngIf="column.dateFormat2 ; else three"> {{element[column.name] | date:'MMMM, y' }}</span>
+                </ng-template>
+                <ng-template #three>
+                    <span *ngIf="column.currencyFormat; else four"> {{element[column.name] | currency : currencySymbol + '&nbsp;' }}</span>
+                </ng-template> 
+                <ng-template #four>
+                    <span *ngIf="column.sizeFormat; else nine"> {{((element[column.name]/1024)/1024) | number:'1.1-2' }} {{'upload.mb' | translate}}</span>
+                </ng-template>
+                <!--<ng-template #five>
+                    <span *ngIf="column.name == 'emailConfirmed'; else six">
+                        <span *ngIf="element[column.name] != true ;">
+                            <app-email-icon (callback)="sendEmail(element)" [disabled]="emailClickDisabled"></app-email-icon>
+                        </span>
+
+                        <span *ngIf="element[column.name] == true ">
+                            {{'submit.active' | translate }}
+                        </span>
+                    </span>
+
+                </ng-template>-->
+                <!--<ng-template #six>
+                    <span *ngIf="column.name =='download' ; else seven">
+                        <app-download-button (click)="download(element)"></app-download-button>
+                    </span>
+                </ng-template>
+                <ng-template #seven>
+                    <span *ngIf="column.name =='alive' ; else eight">
+                        <mat-slide-toggle [checked]="element[column.name] === true" [title]="element[column.name] === true?'deactive':'active'" (change)="changeAlive(element,$event)"></mat-slide-toggle>
+                    </span>
+                </ng-template>
+                <ng-template #eight>
+                    <span *ngIf="column.name =='on' ; else nine">
+                        <mat-slide-toggle [checked]="element[column.name] === true" [title]="element[column.name] === true?'deactive':'active'" (change)="changeOn(element,$event)"></mat-slide-toggle>
+                    </span>
+                </ng-template>-->
+                <ng-template #nine>
+
+                    <span *ngIf="isString(element[column.name]) ; else ten">
+                        <span *ngIf="element[column.name].toString().length < 50 || !showMoreOption;  else popUpForFull">
+                            {{element[column.name]}}
+                        </span>
+                        <ng-template #popUpForFull>
+
+                            <span >  {{element[column.name] | slice:0:15  }} <a class="btn"  (click)="showMore(element[column.name])" style="color: blue; padding:0;
+                                 ">..........</a></span>
+
+
+                        </ng-template>
+                    </span>
+                </ng-template>
+                <ng-template #ten>
+                  
+                    {{ element[column.name]}}
+                </ng-template>
+
+
+
+                <span *ngIf="column.name == 'action' ">
+                    <app-download-button (click)="download(element)" *ngIf="column.download"></app-download-button>
+                    <!--<app-details-button [routerLink]="[detailRoute, element.id]" *ngIf="detailRoute && access.read && (element.active  && element.alive)">
+                    </app-details-button>-->
+                    <app-details-button [routerLink]="[detailRoute, element.id]" *ngIf="detailRoute && access.read && element.alive">
+                    </app-details-button>
+                    <app-edit-button [routerLink]="[editRoute, element.id]" *ngIf="access.edit && editRoute  && (element.active  && element.alive  && element.on)"></app-edit-button>
+                    <app-delete-button (click)="delete(element)" *ngIf="access.delete && column.active && (element.active  && element.alive  && element.on)"></app-delete-button> &nbsp;
+                    <mat-slide-toggle [(ngModel)]="element.alive" *ngIf="access.delete && column.alive"  [title]="element.alive === true?'Not alive':'Alive'" (change)="changeAlive(element,$event)"></mat-slide-toggle> &nbsp;
+                    <mat-slide-toggle  [(ngModel)]="element.on" color="primary" *ngIf="access.delete && column.on" [title]="element.on === true?'Off':'On'" (change)="changeOn(element,$event)"></mat-slide-toggle>
+
+                </span>
+                <span *ngIf="column.name == 'select' ">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? toggle(element) : null"
+                                  [checked]="selection.isSelected(element)">
+                    </mat-checkbox>
+                </span>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+        <tr mat-row  [ngClass]="{'make_light_gray': row.alive != true,'make_light_gold': row.on != true,'make_light_red': row.active != true}"  *matRowDef="let row; columns: displayedColumns;" class="example-element-row" ></tr>
+    </table>
+
+    <table *ngIf="!entities && !isLoadingResults">
+      <tr>
+        <td align="center">{{ 'tableList.noRecord' | translate }}</td>
+      </tr>
+    </table>
+
+    <div [hidden]="!entities || !pagination">
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, all]" showFirstLastButtons (page)="getPaginatorData($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<mat-form-field [formGroup]="sharedForm" style="width:100%">
+  <mat-select matNativeControl  placeholder="{{ 'country.label' | translate  }}" (selectionChange)="onChange()" formControlName="sharedFormControl" [required]="required" >
+    <mat-option value="">{{'global.none' | translate}}</mat-option>
+    <mat-option *ngFor="let entity of entities" [value]="entity.id">{{ entity.name | translate  }}</mat-option>
+  </mat-select>
+  <mat-error *ngIf="sharedForm.get('sharedFormControl').hasError('required')">
+    {{errorMessage | translate }}
+  </mat-error>
+</mat-form-field>

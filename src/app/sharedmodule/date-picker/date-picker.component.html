@@ -1,0 +1,18 @@
+<mat-form-field [formGroup]="sharedForm" style="width:100%">
+  <input matInput [matDatepicker]="picker" placeholder="{{placeholder | translate }}"
+    formControlName="sharedFormControl" (dateInput)="changeEvent($event)" [required]="required" readonly>
+
+  <a matSuffix mat-raised-button *ngIf="!disabled" class="datebtn"
+    (click)="picker.open()">{{ 'submit.choose' | translate }}</a>
+  <mat-error *ngIf="sharedForm.get('sharedFormControl').hasError('required')">
+      {{errorMessage | translate }}
+    </mat-error>
+  <mat-datepicker touchUi #picker [disabled]="disabled"></mat-datepicker>
+  <mat-hint *ngIf="message" [ngStyle]="{color: hintColor}">{{ message | translate }}</mat-hint>
+  <mat-hint  *ngIf="!message">{{ hint | translate}}</mat-hint>
+  
+  
+</mat-form-field>
+<!-- <mat-chip-list>
+  <mat-chip color="warn" *ngIf="message" selected>{{message | translate}}</mat-chip>
+</mat-chip-list> -->
