@@ -6,9 +6,18 @@ import { InputNumberComponent } from './input-number/input-number.component';
 import { InputEmailComponent } from './input-email/input-email.component';
 import { InputTextAreaComponent } from './input-text-area/input-text-area.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputPasswordComponent } from './input-password/input-password.component';
+import { InputPhoneComponent } from './input-phone/input-phone.component';
 
 @NgModule({
-  declarations: [InputStringComponent, InputNumberComponent, InputEmailComponent, InputTextAreaComponent],
+  declarations: [
+    InputStringComponent,
+    InputNumberComponent,
+    InputEmailComponent,
+    InputTextAreaComponent,
+    InputPasswordComponent,
+    InputPhoneComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -17,7 +26,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     InputStringComponent,
-    InputNumberComponent, InputEmailComponent, InputTextAreaComponent
+    InputNumberComponent,
+    InputEmailComponent,
+    InputTextAreaComponent,
+    InputPasswordComponent,
+    InputPhoneComponent
   ]
 })
 export class SharedModule { }

@@ -1,3 +1,12 @@
-<p>
-  input-email works!
-</p>
+
+<mat-form-field [formGroup]="sharedForm" style="width:100%">
+  <input matInput placeholder="{{ 'Email' }}"  formControlName="sharedFormControl"
+         [errorStateMatcher]="matcher"  [required]="required" (keypress)="onChanges($event)">
+         <mat-hint>{{ hint  }}</mat-hint>
+         <mat-error *ngIf="sharedForm.get('sharedFormControl').hasError('email') && !sharedForm.get('sharedFormControl').hasError('required')">
+          {{invalidEmailMessage  }}
+        </mat-error>
+        <mat-error *ngIf="sharedForm.get('sharedFormControl').hasError('required')">
+          {{requiredEmailMessage }}
+        </mat-error>
+</mat-form-field>

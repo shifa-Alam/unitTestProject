@@ -1,0 +1,37 @@
+<div class="marginClass">
+
+  </div>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center ">
+    
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form" >
+
+    <mat-card-content>
+      
+     
+      <app-input-string [placeholder]="'First Name'" [required]="true" (notify)="onFirstNameChange($event)">
+      </app-input-string>
+      <app-input-string [placeholder]="'Last Name'" [required]="false" (notify)="onLastNameChange($event)">
+      </app-input-string>
+      <app-input-email [required]="true" (notify)="onEmailChange($event)"></app-input-email>
+      <app-input-phone [placeholder]="'Phone Number'" [required]="true" (notify)="onphoneNumberChange($event)">
+      </app-input-phone>
+      <app-input-text-area [placeholder]="'Address'" [required]="false" (notify)="onAddressChange($event)">
+      </app-input-text-area>
+      <app-input-password [placeholder]="'Password'" [required]="true" (notify)="onPasswordChange($event)">
+      </app-input-password>
+      <app-input-password [placeholder]="'Re Enter Password'" [required]="true"
+        (notify)="onRetypePasswordChange($event)"></app-input-password>
+       
+    </mat-card-content>
+
+    
+    </form>
+    <button mat-raised-button color="accent" class="btn-block"  (click)="save()">Register</button>
+    
+  </mat-card>
+</div>
