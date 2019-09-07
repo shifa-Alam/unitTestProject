@@ -2,7 +2,7 @@
   <input matInput placeholder="{{placeholder }}" formControlName="sharedFormControl" type="text"
     [required]="required" (keypress)="onChanges($event)">
   <mat-icon matSuffix >phone</mat-icon>
-  <mat-hint>{{ 'global.areaCode' }}</mat-hint>
+  <mat-hint>{{ '+88' }}</mat-hint>
   <mat-error *ngIf="sharedForm.get('sharedFormControl').hasError('required')">
     {{errorMessage }}
   </mat-error>

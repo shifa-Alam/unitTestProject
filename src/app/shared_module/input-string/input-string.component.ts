@@ -52,7 +52,7 @@ export class InputStringComponent implements OnInit, OnChanges {
     if (this.required) {
       const sharedFormControl = this.sharedForm.get('sharedFormControl');
       sharedFormControl.setValidators([Validators.required]);
-      this.errorMessage = 'required';
+      this.errorMessage = 'This field is required';
       sharedFormControl.updateValueAndValidity();
     }
 
