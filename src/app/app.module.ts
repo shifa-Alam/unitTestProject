@@ -10,11 +10,12 @@ import { MaterialModule } from './shared_module/material.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ClockComponent } from './clock/clock.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent
+    AppComponent, LoginComponent, RegisterComponent, ClockComponent
   ],
   imports: [
     BrowserModule,
